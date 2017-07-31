@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Vue登录</title>
+		<script src="https://cdn.bootcss.com/vue/2.4.1/vue.js"></script>
+		<script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
+	</head>
+
+	<body>
+		<button @click="login" id="bt">点击登录</button>
+	</body>
+	<script type="text/javascript">
+	Vue.http.options.emulateJSON = true;
+	Vue.http.options.headers = {
+				'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+				};
+		new Vue({
+			el: "#bt",
+			data: {},
+			methods: {
+				login: function() {
+					console.log("*****");
+					var that = this;
+					var data1 = {
+						Sys_CustomerId: "0",
+						Sys_Timestamp: "-",
+						Sys_Controller: "Login",
+						Sys_UserName: "chenhua01",
+						Sys_Key: "chenhua"
+					}
+					data1 = JSON.stringify(data1)
+					that.$http.post(
+							'http://mall.jinhuixin.com:9002',
+							data1 ,  
+							{	
+								emulateJSON: true,
+								responseType:'json'
+							} , 
+						)
+
+						.then(function(res) {
+							console.log(res);
+						}, function(err) {
+							console.log(err);
+						})
+				}
+			}
+		})
+	</script>
+
+</html>
